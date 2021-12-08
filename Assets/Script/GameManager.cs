@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
     public static event FrameOnly frameOnlyEvent;
     public static event FrameColor frameColorEvent;
 
+    public delegate void ShowToast(string text, float duration);
+    public static event ShowToast showToast;
+
     public delegate void Render();
     public static event Render render;
 
@@ -67,6 +70,14 @@ public class GameManager : MonoBehaviour
         if (render != null)
         {
             render.Invoke();
+        }
+    }
+
+    public static void onShowToast(string text, float duration)
+    {
+        if (showToast != null)
+        {
+            showToast.Invoke(text, duration);
         }
     }
 }

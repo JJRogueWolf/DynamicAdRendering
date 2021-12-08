@@ -63,7 +63,7 @@ public class Operation
     public string argument;
 }
 
-//{
+//{ Sample JSON
 //    "layers":[
 //        {
 //        "type":"frame",

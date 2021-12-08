@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.render += onRender;
+        GameManager.showToast += showToast;
         GameManager.state = GameManager.State.None;
         FrontPanel.SetActive(true);
         RenderPanel.SetActive(false);
@@ -39,6 +40,7 @@ public class UIManager : MonoBehaviour
     private void OnDisable()
     {
         GameManager.render -= onRender;
+        GameManager.showToast -= showToast;
         clearRender();
     }
 
@@ -93,7 +95,7 @@ public class UIManager : MonoBehaviour
     {
         if (inputText.text.Equals(""))
         {
-            showToast("Input Field Is Empty", 2);
+            GameManager.onShowToast("Input Field Is Empty", 2);
             return;
         }
         GameManager.inputString = inputText.text;

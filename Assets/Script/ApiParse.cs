@@ -32,22 +32,21 @@ public class ApiParse : MonoBehaviour
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
             yield return webRequest.SendWebRequest();
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
 
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.ConnectionError:
                 case UnityWebRequest.Result.DataProcessingError:
-                    Debug.LogError(pages[page].Split('.')[0] + ": Error: " + webRequest.error);
+                    GameManager.onShowToast("Error: " + webRequest.error, 2);
+                    Debug.LogError(": Error: " + webRequest.error);
                     break;
                 case UnityWebRequest.Result.ProtocolError:
-                    Debug.LogError(pages[page].Split('.')[0] + ": HTTP Error: " + webRequest.error);
+                    GameManager.onShowToast("HTTP Error: " + webRequest.error, 2);
+                    Debug.LogError(": HTTP Error: " + webRequest.error);
                     break;
                 case UnityWebRequest.Result.Success:
                     GameManager.adRendering = JsonUtility.FromJson<AdRendering>(webRequest.downloadHandler.text);
                     GameManager.onRender();
-                    Debug.Log("Type = " + GameManager.adRendering.layers[0].getType());
                     break;
             }
         }
